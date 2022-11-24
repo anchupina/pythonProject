@@ -11,8 +11,25 @@ class ApiClient:
         :param path:
         :return:
         """
-        response = requests.get(url=f'{URL}{path}',
-                                headers=HEADERS,
-                                params=params)
+        response = requests.get(
+            url=f'{URL}{path}',
+            headers=HEADERS,
+            params=params
+        )
+        response.raise_for_status()
+        return response
+
+    def get_by_id(self, params, path="/v2/pet/{petId}"):
+        """
+
+        :param params:
+        :param path:
+        :return:
+        """
+        path = path.format(**params)
+        response = requests.get(
+            url=f'{URL}{path}',
+            headers=HEADERS,
+        )
         response.raise_for_status()
         return response
